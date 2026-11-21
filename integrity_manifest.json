@@ -1,0 +1,37 @@
+{
+  "status": "PARTIALLY_VERIFIED",
+  "hash_algorithm": "SHA-256",
+  "files": [
+    {
+      "path": "claim_to_code.json",
+      "sha256": "f2faf9ede6609a107136b69204ed6ed9d31fa471e4d4f057428b6cbb7a75ac7a",
+      "bytes": 6858
+    },
+    {
+      "path": "code/analysis.py",
+      "sha256": "b403c0f953a1b8a6a39189778366a7ab6ded290feaaebc06c522323bfb3b1c87",
+      "bytes": 6958
+    },
+    {
+      "path": "code/cohort.py",
+      "sha256": "aac2fc9d0727b2d6e0ff2296b52a38d9ac4550b69c0f922cb6c538deb7b5b794",
+      "bytes": 4560
+    },
+    {
+      "path": "dataset_urls.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "verification_report.json",
+      "sha256": "59dc058d9c3cd938335ad0ec47ee0258d86278b99133afc3e992d95964716dae",
+      "bytes": 964
+    }
+  ],
+  "limitations": [
+    "The source manuscript and clinical data are not included.",
+    "No dataset URL is listed because no matching official link was identified.",
+    "No third-party source code is included.",
+    "The manifest excludes itself."
+  ]
+}

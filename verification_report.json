@@ -1,0 +1,29 @@
+{
+  "status": "PARTIALLY_VERIFIED",
+  "history": {
+    "status": "PASS",
+    "evidence": "A 12-check run passed before the verification files were removed; the checks are no longer retained and the revised code has not been rerun against the original cohort."
+  },
+  "current_checks": [
+    {
+      "name": "Python syntax",
+      "status": "PASS",
+      "evidence": "All retained Python files were parsed."
+    },
+    {
+      "name": "Cohort and model validation",
+      "status": "BLOCKED",
+      "evidence": "Original cohort and complete model specification are unavailable."
+    },
+    {
+      "name": "Privacy accounting and secure aggregation",
+      "status": "BLOCKED",
+      "evidence": "The paper does not supply sufficient implementation detail for a verified guarantee."
+    },
+    {
+      "name": "4500 meaningful source lines",
+      "status": "FAIL",
+      "evidence": "The retained implementation is shorter than the requested minimum."
+    }
+  ]
+}

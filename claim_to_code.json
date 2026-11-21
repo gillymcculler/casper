@@ -1,0 +1,147 @@
+{
+  "title": "Casper",
+  "source": "User-provided manuscript, 30 pages",
+  "status": "PARTIALLY_VERIFIED",
+  "entries": [
+    {
+      "location": "Methods 5.1, Table 1",
+      "claim": "Sites A–E fit the generator; sites F and G form a held-out region.",
+      "implementation": "code/cohort.py:read_retrospective_cohort",
+      "status": "PASS",
+      "reason": "The original private cohort, schema and individual records are unavailable.",
+      "qualification": "Site routing is implemented. The cohort and its schema, counts and provenance are unavailable for validation."
+    },
+    {
+      "location": "Methods 5.2",
+      "claim": "Early gastric cancer or high-grade intraepithelial neoplasia within 12 months is the primary outcome.",
+      "implementation": null,
+      "status": "BLOCKED",
+      "reason": "Clinical event and pathology data and outcome extraction rules are unavailable.",
+      "qualification": "The loader accepts a precomputed binary outcome but cannot verify histology, time-window logic or exclusions from the data provided."
+    },
+    {
+      "location": "Methods 5.3",
+      "claim": "A mixed-type generator combines a masked autoencoder with guided diffusion.",
+      "implementation": null,
+      "status": "BLOCKED",
+      "reason": "Complete model architecture, training objective and settings are not specified; no official implementation is identified."
+    },
+    {
+      "location": "Methods 5.3.1, Algorithm 1, steps 5–7",
+      "claim": "Calculate per-record gradients, clip their global norm and average.",
+      "implementation": "code/analysis.py:clip_and_average",
+      "status": "BLOCKED",
+      "qualification": "Clipping and averaging are present; the loss and per-record gradients are unspecified."
+    },
+    {
+      "location": "Methods 5.3.1, Algorithm 1, step 8",
+      "claim": "Add Gaussian noise to the mean gradient with standard deviation sigma times C.",
+      "implementation": "code/analysis.py:perturb_average",
+      "status": "PASS",
+      "qualification": "The caller supplies the standard deviation; no epsilon, delta or privacy guarantee is calculated."
+    },
+    {
+      "location": "Methods 5.3.1, Algorithm 1, steps 2 and 10",
+      "claim": "Calibrate the noise and maintain a site ledger.",
+      "implementation": null,
+      "status": "BLOCKED",
+      "reason": "Sampling scheme and accountant details required for calibration are not specified."
+    },
+    {
+      "location": "Methods 5.3.2, Algorithm 2, step 4",
+      "claim": "Retain the largest fraction of update coordinates.",
+      "implementation": "code/analysis.py:top_fraction",
+      "status": "PASS",
+      "qualification": "Rounding upward and tie handling are explicit engineering defaults."
+    },
+    {
+      "location": "Methods 5.3.2, Algorithm 2, steps 5–12",
+      "claim": "Quantize and securely mask site updates, aggregate and broadcast.",
+      "implementation": null,
+      "status": "BLOCKED",
+      "reason": "Quantizer, mask protocol, security assumptions and handling of dropouts are not specified. A zero-sum mask alone does not establish site privacy."
+    },
+    {
+      "location": "Methods 5.4",
+      "claim": "Compare a privacy loss accountant with a Renyi accountant.",
+      "implementation": null,
+      "status": "BLOCKED",
+      "reason": "Accountants, sampling, composition, calibration parameters and released transcript are not specified."
+    },
+    {
+      "location": "Methods 5.6, Table 3",
+      "claim": "Measure discrimination using AUC.",
+      "implementation": "code/analysis.py:auc",
+      "status": "PASS",
+      "qualification": "Metric code was previously checked against an independent library; the manuscript cohort remains unavailable."
+    },
+    {
+      "location": "Table 6",
+      "claim": "Report the median Kolmogorov–Smirnov statistic across fields.",
+      "implementation": "code/analysis.py:ks_distance",
+      "status": "PASS",
+      "qualification": "The two-sample per-field statistic is implemented; mixed-field aggregation and paper results are not verified."
+    },
+    {
+      "location": "Methods 5.2, Table 7",
+      "claim": "Use decision-curve net benefit.",
+      "implementation": "code/analysis.py:net_benefit",
+      "status": "PASS",
+      "qualification": "A standard binary threshold formula is implemented; the paper does not specify code or reportable data."
+    },
+    {
+      "location": "Methods 5.6; Tables 3–8",
+      "claim": "Compare arms, attacks, clinical outcomes and site-level results, with site-clustered intervals and 20 random seeds.",
+      "implementation": null,
+      "status": "BLOCKED",
+      "reason": "Cohort, models, predictions, attack setup and full analysis protocol are unavailable."
+    },
+    {
+      "location": "Appendix A, equations 1–4",
+      "claim": "Theoretical budget and residue relations.",
+      "implementation": null,
+      "status": "BLOCKED",
+      "reason": "The source appendix omits parts of the formal setting, assumptions and proofs; its relations are not independently established."
+    },
+    {
+      "location": "Methods 5.5 and Data availability",
+      "claim": "The manuscript describes a deposit with a persistent identifier and open licence.",
+      "implementation": null,
+      "status": "BLOCKED",
+      "reason": "The supplied document gives no dataset identifier, link or licence."
+    },
+    {
+      "location": "Table 1, panel B",
+      "claim": "Missingness is reported for the cohort.",
+      "implementation": "code/cohort.py:cohort_summary",
+      "status": "PASS",
+      "qualification": "Missing-cell counting is implemented; the cohort values and missingness rates remain unverified."
+    }
+  ],
+  "unreported": [
+    "batch size",
+    "optimizer",
+    "learning rate",
+    "training epochs",
+    "warmup",
+    "weight decay",
+    "precision",
+    "architecture dimensions",
+    "noise multipliers",
+    "clipping norm",
+    "sampling method",
+    "quantization rule",
+    "secure aggregation protocol",
+    "feature dictionary",
+    "dataset license",
+    "GPU model and count"
+  ],
+  "engineering_defaults": [
+    "Numeric CSV input requires explicit column names and finite numeric cells.",
+    "Sparsification rounds the number of coordinates upward and resolves equal magnitudes by index order.",
+    "The retrospective CSV schema is explicitly supplied by the caller; missing fields are preserved, not imputed.",
+    "Only retrospective sites A–G are accepted, and both fitting and external partitions must be present.",
+    "The outcome field must already contain a known 0/1 value; its clinical derivation is not inferred."
+  ],
+  "source_note": "The manuscript cites TabMAGD, available at https://doi.org/10.26599/BDMA.2025.9020105. This citation does not establish the exact generator or training configuration used in the manuscript."
+}
